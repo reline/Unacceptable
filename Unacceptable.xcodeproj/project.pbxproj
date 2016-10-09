@@ -14,6 +14,8 @@
 		D88036DF1DA997940000274E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D88036DD1DA997940000274E /* LaunchScreen.storyboard */; };
 		D88036EA1DA997940000274E /* UnacceptableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88036E91DA997940000274E /* UnacceptableTests.swift */; };
 		D88036F51DA997940000274E /* UnacceptableUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88036F41DA997940000274E /* UnacceptableUITests.swift */; };
+		D8E5B68A1DA9BFA9003E8693 /* lemon_grab_unacceptable.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D8E5B6891DA9BFA9003E8693 /* lemon_grab_unacceptable.mp3 */; };
+		D8E5B68C1DA9C185003E8693 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D8E5B68B1DA9C185003E8693 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		D88036F01DA997940000274E /* UnacceptableUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnacceptableUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D88036F41DA997940000274E /* UnacceptableUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnacceptableUITests.swift; sourceTree = "<group>"; };
 		D88036F61DA997940000274E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8E5B6891DA9BFA9003E8693 /* lemon_grab_unacceptable.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lemon_grab_unacceptable.mp3; sourceTree = "<group>"; };
+		D8E5B68B1DA9C185003E8693 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,7 @@
 		D88036C81DA997930000274E = {
 			isa = PBXGroup;
 			children = (
+				D8E5B68B1DA9C185003E8693 /* .gitignore */,
 				D88036D31DA997940000274E /* Unacceptable */,
 				D88036E81DA997940000274E /* UnacceptableTests */,
 				D88036F31DA997940000274E /* UnacceptableUITests */,
@@ -100,6 +105,7 @@
 				D88036D41DA997940000274E /* AppDelegate.swift */,
 				D88036D61DA997940000274E /* ViewController.swift */,
 				D88036D81DA997940000274E /* Main.storyboard */,
+				D8E5B6891DA9BFA9003E8693 /* lemon_grab_unacceptable.mp3 */,
 				D88036DB1DA997940000274E /* Assets.xcassets */,
 				D88036DD1DA997940000274E /* LaunchScreen.storyboard */,
 				D88036E01DA997940000274E /* Info.plist */,
@@ -232,7 +238,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8E5B68C1DA9C185003E8693 /* .gitignore in Resources */,
 				D88036DF1DA997940000274E /* LaunchScreen.storyboard in Resources */,
+				D8E5B68A1DA9BFA9003E8693 /* lemon_grab_unacceptable.mp3 in Resources */,
 				D88036DC1DA997940000274E /* Assets.xcassets in Resources */,
 				D88036DA1DA997940000274E /* Main.storyboard in Resources */,
 			);
@@ -505,6 +513,7 @@
 				D88036FB1DA997940000274E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D88036FC1DA997940000274E /* Build configuration list for PBXNativeTarget "UnacceptableTests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +522,7 @@
 				D88036FE1DA997940000274E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D88036FF1DA997940000274E /* Build configuration list for PBXNativeTarget "UnacceptableUITests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +531,7 @@
 				D88037011DA997940000274E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

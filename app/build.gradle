@@ -1,35 +1,22 @@
+evaluate(new File("keystore.properties"))
+
 apply plugin: 'com.android.application'
-
-allprojects {
-    afterEvaluate { project ->
-
-        def propsFile = rootProject.file('keystore.properties')
-        def configName = "release"
-
-        if (propsFile.exists() && android.signingConfigs.hasProperty(configName)) {
-            def props = new Properties()
-            props.load(new FileInputStream(propsFile))
-            android.signingConfigs[configName].storePassword = props['storePassword']
-            android.signingConfigs[configName].keyPassword = props['keyPassword']
-        }
-    }
-}
 
 android {
     signingConfigs {
         release {
-            keyAlias 'androidkey'
-            keyPassword ""
-            storeFile file('C:/Users/Reline/keystores/android.jks')
-            storePassword ""
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile file(STORE_FILE)
+            storePassword STORE_PASSWORD
         }
     }
-    compileSdkVersion 24
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.github.reline.unacceptable"
-        minSdkVersion 10
-        targetSdkVersion 24
+        minSdkVersion 9
+        targetSdkVersion 25
         versionCode 3
         versionName "1.2.0"
     }
@@ -45,5 +32,5 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:appcompat-v7:25.1.0'
 }

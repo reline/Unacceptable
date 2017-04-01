@@ -2,18 +2,15 @@
 .idea
 *.iml
 annotations
-classes
 
 # Generated
 bin
 gen
 build
 out
-lib
 
 # Gradle
 .gradle
-gradlew.bat
 local.properties
 reports
 jacoco.exec
@@ -21,4 +18,4 @@ jacoco.exec
 .DS_Store
 *.keystore
 *.jks
-keystore.properties
+*.apk

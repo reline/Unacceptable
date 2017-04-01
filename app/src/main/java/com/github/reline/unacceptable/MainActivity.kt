@@ -2,12 +2,10 @@ package com.github.reline.unacceptable
 
 import android.app.Activity
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Vibrator
-import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -17,8 +15,6 @@ class MainActivity : Activity() {
 
     private val TIME_REMAINING = "TIME_REMAINING"
 
-    private lateinit var lemon: Drawable
-    private lateinit var lemongrab: Drawable
     private lateinit var shake: Animation
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var vibrator: Vibrator
@@ -33,8 +29,6 @@ class MainActivity : Activity() {
         shake = AnimationUtils.loadAnimation(applicationContext, R.anim.shake)
         mediaPlayer = MediaPlayer.create(applicationContext, R.raw.lemon_grab_unacceptable)
         vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        lemon = ContextCompat.getDrawable(applicationContext, R.drawable.lemon)
-        lemongrab = ContextCompat.getDrawable(applicationContext, R.drawable.lemongrab)
 
         shake.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {
@@ -42,7 +36,7 @@ class MainActivity : Activity() {
             }
 
             override fun onAnimationEnd(animation: Animation) {
-                unacceptableButton.setImageDrawable(lemon)
+                unacceptableButton.setImageResource(R.drawable.lemon)
                 vibrator.cancel()
                 unacceptableButton.setOnClickListener(onClickListener)
             }
@@ -57,7 +51,7 @@ class MainActivity : Activity() {
         shake.restrictDuration(mediaPlayer.duration.toLong())
         mediaPlayer.start()
         unacceptableButton.startAnimation(shake)
-        unacceptableButton.setImageDrawable(lemongrab)
+        unacceptableButton.setImageResource(R.drawable.lemongrab)
         vibrator.vibrate(mediaPlayer.duration.toLong())
     }
 
@@ -65,14 +59,14 @@ class MainActivity : Activity() {
         super.onRestoreInstanceState(savedInstanceState)
         val timeRemaining = savedInstanceState?.getInt(TIME_REMAINING)?.toLong() ?: 0
         if (timeRemaining > 0) {
-            unacceptableButton.setImageDrawable(lemongrab)
+            unacceptableButton.setImageResource(R.drawable.lemongrab)
             shake.restrictDuration(timeRemaining)
             unacceptableButton.startAnimation(shake)
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
-        val timeRemaining = let { if (mediaPlayer.isPlaying) mediaPlayer.duration - mediaPlayer.currentPosition else 0}
+        val timeRemaining = let { if (mediaPlayer.isPlaying) mediaPlayer.duration - mediaPlayer.currentPosition else 0 }
         outState?.putInt(TIME_REMAINING, timeRemaining)
         super.onSaveInstanceState(outState)
     }

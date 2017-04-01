@@ -1,21 +1,7 @@
-# IntelliJ IDEA
 .idea
 *.iml
-annotations
-
-# Generated
-bin
-gen
 build
-out
-
-# Gradle
 .gradle
 local.properties
-reports
-jacoco.exec
-
-.DS_Store
-*.keystore
 *.jks
 *.apk

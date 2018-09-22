@@ -19,6 +19,7 @@
         android:layout_gravity="center"
         android:cropToPadding="true"
         android:padding="0dp"
+        android:onClick="onLemonClicked"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

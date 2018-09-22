@@ -11,14 +11,14 @@ android {
             storePassword "android"
         }
     }
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.2"
     defaultConfig {
         applicationId "com.github.reline.unacceptable"
-        minSdkVersion 4
-        targetSdkVersion 25
+        minSdkVersion 14
+        targetSdkVersion 28
         versionCode 5
-        versionName "2.0.0"
+        versionName "2.0.1"
     }
     buildTypes {
         release {
@@ -32,5 +32,5 @@ android {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

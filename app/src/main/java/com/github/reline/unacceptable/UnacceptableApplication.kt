@@ -2,6 +2,7 @@ package com.github.reline.unacceptable
 
 import android.app.Application
 import android.content.BroadcastReceiver
+import com.github.reline.unacceptable.injection.components.DaggerApplicationComponent
 import com.github.reline.unacceptable.injection.modules.ApplicationModule
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasBroadcastReceiverInjector

@@ -4,7 +4,7 @@ import com.github.reline.unacceptable.injection.appwidget.UnacceptableWidgetProv
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
-@Module(includes = [ApplicationModule::class])
+@Module
 abstract class BroadcastReceiverModule {
     @ContributesAndroidInjector
     abstract fun contributeUnacceptableWidgetProviderInjector(): UnacceptableWidgetProvider

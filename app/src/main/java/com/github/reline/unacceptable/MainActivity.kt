@@ -1,7 +1,6 @@
 package com.github.reline.unacceptable
 
 import android.app.Activity
-import android.content.Context
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -9,25 +8,32 @@ import android.os.Vibrator
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import com.github.reline.unacceptable.injection.mediaplayer.MediaPlayerFactory
+import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.unacceptable_layout.*
+import javax.inject.Inject
 
 class MainActivity : Activity() {
 
-    private lateinit var shake: Animation
+    @Inject
+    lateinit var mediaPlayerFactory: MediaPlayerFactory
+
+    @Inject
+    lateinit var vibrator: Vibrator
+
     private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var vibrator: Vibrator
+    private lateinit var shake: Animation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.unacceptable_layout)
+        AndroidInjection.inject(this)
 
         // set application to control media volume instead of ring volume
         volumeControlStream = AudioManager.STREAM_MUSIC
 
+        mediaPlayer = mediaPlayerFactory.getMediaPlayer()
         shake = AnimationUtils.loadAnimation(applicationContext, R.anim.shake)
-        mediaPlayer = MediaPlayer.create(applicationContext, R.raw.lemon_grab_unacceptable)
-        vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-
         shake.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {
                 unacceptableButton.setImageResource(R.drawable.lemongrab)

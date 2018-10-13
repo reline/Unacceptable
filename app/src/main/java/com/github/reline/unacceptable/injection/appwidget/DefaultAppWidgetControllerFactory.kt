@@ -5,13 +5,15 @@ import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.os.Vibrator
 import android.util.SparseArray
+import android.view.WindowManager
 import com.github.reline.unacceptable.injection.mediaplayer.MediaPlayerFactory
 import com.github.reline.unacceptable.getOrPut
 
 class DefaultAppWidgetControllerFactory(
         application: Application,
         private val mediaPlayerFactory: MediaPlayerFactory,
-        private val vibrator: Vibrator
+        private val vibrator: Vibrator,
+        private val windowManager: WindowManager
 ) : AppWidgetControllerFactory {
 
     private val context: Context = application
@@ -24,7 +26,8 @@ class DefaultAppWidgetControllerFactory(
                         AppWidgetManager.getInstance(context),
                         appWidgetId,
                         mediaPlayerFactory.getMediaPlayer(),
-                        vibrator
+                        vibrator,
+                        windowManager
                 )
         )
     }

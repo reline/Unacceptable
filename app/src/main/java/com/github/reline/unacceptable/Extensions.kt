@@ -14,6 +14,7 @@ fun Vibrator.vibrate(milliseconds: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         this.vibrate(VibrationEffect.createOneShot(milliseconds.toLong(), VibrationEffect.DEFAULT_AMPLITUDE))
     } else {
+        @Suppress("DEPRECATION")
         this.vibrate(milliseconds.toLong())
     }
 }

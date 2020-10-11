@@ -60,9 +60,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val timeRemaining = savedInstanceState.getInt(TIME_REMAINING)
-        val isChangingConfigurations = savedInstanceState.getBoolean(CHANGING_CONFIGURATIONS)
-        if (timeRemaining > 0 && isChangingConfigurations) {
+        val timeRemaining = savedInstanceState.timeRemaining
+        if (timeRemaining > 0 && savedInstanceState.isChangingConfigurations) {
             shake.restrictDuration(timeRemaining.toLong())
             unacceptableButton.startAnimation(shake)
         }
@@ -71,9 +70,8 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         if (mediaPlayer.isPlaying) {
             if (isChangingConfigurations) {
-                val timeRemaining = mediaPlayer.duration - mediaPlayer.currentPosition
-                outState.putInt(TIME_REMAINING, timeRemaining)
-                outState.putBoolean(CHANGING_CONFIGURATIONS, true)
+				outState.timeRemaining = mediaPlayer.duration - mediaPlayer.currentPosition
+				outState.isChangingConfigurations = true
             } else {
                 mediaPlayer.pause()
                 mediaPlayer.seekTo(0)
@@ -83,10 +81,14 @@ class MainActivity : AppCompatActivity() {
         }
         super.onSaveInstanceState(outState)
     }
-
-    companion object {
-        private const val TIME_REMAINING = "TIME_REMAINING"
-        private const val CHANGING_CONFIGURATIONS = "CHANGING_CONFIGURATIONS"
-    }
-
 }
+
+private const val TIME_REMAINING = "TIME_REMAINING"
+private var Bundle.timeRemaining
+	get() = getInt(TIME_REMAINING)
+	set(value) = putInt(TIME_REMAINING, value)
+
+private const val CHANGING_CONFIGURATIONS = "CHANGING_CONFIGURATIONS"
+private var Bundle.isChangingConfigurations
+	get() = getBoolean(CHANGING_CONFIGURATIONS)
+	set(value) = putBoolean(CHANGING_CONFIGURATIONS, value)

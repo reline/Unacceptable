@@ -11,7 +11,7 @@ import com.github.reline.unacceptable.vibrate
 import android.view.WindowManager
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
-import android.util.Log
+import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.schedule
@@ -51,7 +51,7 @@ class AppWidgetController(
     }
 
     private fun startAnimation() {
-        Log.d(TAG, "FPS = $FPS, rotate duration = $ROTATE_DURATION, frames = $FRAMES, rotation per frame = $ROTATION_DEGREES")
+        Timber.d("FPS = $FPS, rotate duration = $ROTATE_DURATION, frames = $FRAMES, rotation per frame = $ROTATION_DEGREES")
 
         isRunning = true
         startTime = System.currentTimeMillis()
@@ -59,8 +59,8 @@ class AppWidgetController(
     }
 
     private fun update() {
-        Log.d(TAG, "update()")
-        Log.d(TAG, "isRunning = $isRunning")
+        Timber.d("update()")
+        Timber.d("isRunning = $isRunning")
         val resId = if (isRunning) R.drawable.lemongrab else R.drawable.lemon
 
         val options = BitmapFactory.Options()
@@ -80,7 +80,7 @@ class AppWidgetController(
 
             // default rotation direction is right, so use the min degrees
             val offset = currentCycleRotation - MIN_DEGREES // negative if right, positive if left
-            Log.d(TAG, "time passed = $timePassed, current frame = $currentFrame, frame rotation = $frameRotation, current cycle rotation = $currentCycleRotation, offset = $offset")
+            Timber.d("time passed = $timePassed, current frame = $currentFrame, frame rotation = $frameRotation, current cycle rotation = $currentCycleRotation, offset = $offset")
             // determine direction based on total degrees rotated
             if (offset > 0) {
                 // rotate left
@@ -90,8 +90,8 @@ class AppWidgetController(
                 currentDirection = Direction.RIGHT
             }
 
-            Log.d(TAG, "currentDirection = $currentDirection")
-            Log.d(TAG, "currentDegrees = $currentDegrees")
+            Timber.d("currentDirection = $currentDirection")
+            Timber.d("currentDegrees = $currentDegrees")
             val degreesToRotate = Math.abs(offset)
             when (currentDirection) {
                 Direction.RIGHT -> {
@@ -113,7 +113,7 @@ class AppWidgetController(
                     }
                 }
             }
-            Log.d(TAG, "newDegrees = $currentDegrees")
+            Timber.d("newDegrees = $currentDegrees")
             matrix.postRotate(currentDegrees.toFloat())
         }
 
@@ -148,7 +148,7 @@ class AppWidgetController(
     }
 
     fun onSizeChanged(maxWidth: Int, maxHeight: Int) {
-        Log.d(TAG, "widget width = $maxWidth, widget height: $maxHeight")
+        Timber.d("widget width = $maxWidth, widget height: $maxHeight")
     }
 
     private enum class Direction {

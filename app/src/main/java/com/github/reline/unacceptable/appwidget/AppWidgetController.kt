@@ -1,4 +1,4 @@
-package com.github.reline.unacceptable.injection.appwidget
+package com.github.reline.unacceptable.appwidget
 
 import android.appwidget.AppWidgetManager
 import android.content.Context

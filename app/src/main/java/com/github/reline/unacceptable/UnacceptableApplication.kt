@@ -1,32 +1,7 @@
 package com.github.reline.unacceptable
 
-import android.app.Activity
 import android.app.Application
-import android.content.BroadcastReceiver
-import com.github.reline.unacceptable.injection.components.DaggerApplicationComponent
-import com.github.reline.unacceptable.injection.modules.ApplicationModule
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
-import dagger.android.HasBroadcastReceiverInjector
-import javax.inject.Inject
+import dagger.hilt.android.HiltAndroidApp
 
-class UnacceptableApplication : Application(), HasBroadcastReceiverInjector, HasActivityInjector {
-
-    @Inject
-    lateinit var broadcastReceiverInjector: DispatchingAndroidInjector<BroadcastReceiver>
-
-    @Inject
-    lateinit var activityInjector: DispatchingAndroidInjector<Activity>
-
-    override fun onCreate() {
-        super.onCreate()
-        DaggerApplicationComponent.builder()
-                .applicationModule(ApplicationModule(this))
-                .build()
-                .inject(this);
-    }
-
-    override fun broadcastReceiverInjector() = broadcastReceiverInjector
-
-    override fun activityInjector() = activityInjector
-}
+@HiltAndroidApp
+class UnacceptableApplication : Application()

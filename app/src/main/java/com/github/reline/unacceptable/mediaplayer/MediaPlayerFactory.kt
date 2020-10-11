@@ -1,4 +1,4 @@
-package com.github.reline.unacceptable.injection.mediaplayer
+package com.github.reline.unacceptable.mediaplayer
 
 import android.media.MediaPlayer
 

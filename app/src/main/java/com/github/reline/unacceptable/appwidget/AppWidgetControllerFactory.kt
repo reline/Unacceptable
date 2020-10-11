@@ -1,4 +1,4 @@
-package com.github.reline.unacceptable.injection.appwidget
+package com.github.reline.unacceptable.appwidget
 
 interface AppWidgetControllerFactory {
     fun getAppWidgetController(appWidgetId: Int): AppWidgetController

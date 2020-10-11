@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     signingConfigs {
@@ -12,12 +13,12 @@ android {
             storePassword "android"
         }
     }
-    compileSdkVersion 28
-    buildToolsVersion "28.0.2"
+    compileSdkVersion 30
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.github.reline.unacceptable"
-        minSdkVersion 14
-        targetSdkVersion 28
+        minSdkVersion 16
+        targetSdkVersion 30
         versionCode 5
         versionName "2.0.1"
     }
@@ -25,18 +26,27 @@ android {
         release {
             minifyEnabled true
             signingConfig signingConfigs.release
+			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
             applicationIdSuffix = ".debug"
         }
     }
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    implementation 'com.google.dagger:dagger:2.17'
-    kapt 'com.google.dagger:dagger-compiler:2.17'
-    implementation 'com.google.dagger:dagger-android:2.17'
-    kapt 'com.google.dagger:dagger-android-processor:2.17'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+
+	implementation "com.google.dagger:hilt-android:$dagger_version"
+	kapt "com.google.dagger:hilt-android-compiler:$dagger_version"
+
+	implementation "com.jakewharton.timber:timber:4.7.1"
+
+	debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 }

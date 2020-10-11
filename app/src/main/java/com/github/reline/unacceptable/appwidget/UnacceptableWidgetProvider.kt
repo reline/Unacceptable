@@ -1,4 +1,4 @@
-package com.github.reline.unacceptable.injection.appwidget
+package com.github.reline.unacceptable.appwidget
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -6,14 +6,12 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.util.Log
-import android.view.WindowManager
 import android.widget.RemoteViews
 import com.github.reline.unacceptable.R
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class UnacceptableWidgetProvider : AppWidgetProvider() {
 
     @Inject
@@ -61,7 +59,6 @@ class UnacceptableWidgetProvider : AppWidgetProvider() {
     }
 
     override fun onReceive(context: Context, intent: Intent) {
-        AndroidInjection.inject(this, context)
         super.onReceive(context, intent)
         if (intent.action == null) {
             val widgetId = intent.extras?.get(AppWidgetManager.EXTRA_APPWIDGET_ID) as? Int ?: return

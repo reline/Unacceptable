@@ -7,6 +7,7 @@ import android.util.SparseArray
 import android.view.WindowManager
 import com.github.reline.unacceptable.mediaplayer.MediaPlayerFactory
 import com.github.reline.unacceptable.getOrPut
+import kotlinx.coroutines.GlobalScope
 
 class DefaultAppWidgetControllerFactory(
         private val context: Context,
@@ -25,7 +26,8 @@ class DefaultAppWidgetControllerFactory(
                         appWidgetId,
                         mediaPlayerFactory.getMediaPlayer(),
                         vibrator,
-                        windowManager
+                        windowManager,
+						GlobalScope
                 )
         )
     }

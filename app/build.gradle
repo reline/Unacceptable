@@ -4,14 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    signingConfigs {
-        release {
-            keyAlias "android"
-            keyPassword "android"
-            storeFile file("../android.jks")
-            storePassword "android"
-        }
-    }
     compileSdkVersion 28
     buildToolsVersion "28.0.2"
     defaultConfig {
@@ -24,7 +16,6 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            signingConfig signingConfigs.release
         }
         debug {
             applicationIdSuffix = ".debug"

@@ -1,6 +1,5 @@
 package com.github.reline.unacceptable
 
-import android.app.Activity
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -8,12 +7,14 @@ import android.os.Vibrator
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import com.github.reline.unacceptable.injection.mediaplayer.MediaPlayerFactory
-import dagger.android.AndroidInjection
+import androidx.appcompat.app.AppCompatActivity
+import com.github.reline.unacceptable.mediaplayer.MediaPlayerFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.unacceptable_layout.*
 import javax.inject.Inject
 
-class MainActivity : Activity() {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var mediaPlayerFactory: MediaPlayerFactory
@@ -27,7 +28,6 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.unacceptable_layout)
-        AndroidInjection.inject(this)
 
         // set application to control media volume instead of ring volume
         volumeControlStream = AudioManager.STREAM_MUSIC
@@ -58,22 +58,20 @@ class MainActivity : Activity() {
         mediaPlayer.start()
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val timeRemaining = savedInstanceState?.getInt(TIME_REMAINING) ?: 0
-        val isChangingConfigurations = savedInstanceState?.getBoolean(CHANGING_CONFIGURATIONS) ?: false
-        if (timeRemaining > 0 && isChangingConfigurations) {
+        val timeRemaining = savedInstanceState.timeRemaining
+        if (timeRemaining > 0 && savedInstanceState.isChangingConfigurations) {
             shake.restrictDuration(timeRemaining.toLong())
             unacceptableButton.startAnimation(shake)
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         if (mediaPlayer.isPlaying) {
             if (isChangingConfigurations) {
-                val timeRemaining = mediaPlayer.duration - mediaPlayer.currentPosition
-                outState?.putInt(TIME_REMAINING, timeRemaining)
-                outState?.putBoolean(CHANGING_CONFIGURATIONS, true)
+				outState.timeRemaining = mediaPlayer.duration - mediaPlayer.currentPosition
+				outState.isChangingConfigurations = true
             } else {
                 mediaPlayer.pause()
                 mediaPlayer.seekTo(0)
@@ -83,10 +81,14 @@ class MainActivity : Activity() {
         }
         super.onSaveInstanceState(outState)
     }
-
-    companion object {
-        private const val TIME_REMAINING = "TIME_REMAINING"
-        private const val CHANGING_CONFIGURATIONS = "CHANGING_CONFIGURATIONS"
-    }
-
 }
+
+private const val TIME_REMAINING = "TIME_REMAINING"
+private var Bundle.timeRemaining
+	get() = getInt(TIME_REMAINING)
+	set(value) = putInt(TIME_REMAINING, value)
+
+private const val CHANGING_CONFIGURATIONS = "CHANGING_CONFIGURATIONS"
+private var Bundle.isChangingConfigurations
+	get() = getBoolean(CHANGING_CONFIGURATIONS)
+	set(value) = putBoolean(CHANGING_CONFIGURATIONS, value)

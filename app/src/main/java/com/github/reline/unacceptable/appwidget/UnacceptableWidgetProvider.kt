@@ -1,24 +1,45 @@
-package com.github.reline.unacceptable.injection.appwidget
+package com.github.reline.unacceptable.appwidget
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.widget.RemoteViews
 import com.github.reline.unacceptable.R
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class UnacceptableWidgetProvider : AppWidgetProvider() {
 
     @Inject
     lateinit var controllerFactory: AppWidgetControllerFactory
 
+    override fun onEnabled(context: Context) {
+        // AppWidget for this provider is instantiated
+    }
+
+    override fun onDisabled(context: Context) {
+        // last AppWidget instance for this provider is deleted
+    }
+
+    override fun onDeleted(context: Context, appWidgetIds: IntArray) {
+        // one or more AppWidget instances have been deleted
+        // only one widget is ever given in the current implementation
+    }
+
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         appWidgetIds.forEach { appWidgetId ->
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
+    }
+
+    override fun onAppWidgetOptionsChanged(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int, newOptions: Bundle) {
+        val maxHeight = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT)
+        val maxWidth = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH)
+        controllerFactory.getAppWidgetController(appWidgetId).onSizeChanged(maxWidth, maxHeight)
     }
 
     private fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
@@ -33,16 +54,15 @@ class UnacceptableWidgetProvider : AppWidgetProvider() {
         appWidgetManager.updateAppWidget(appWidgetId, views)
     }
 
-    private fun onLemonClicked(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
+    private fun onLemonClicked(appWidgetId: Int) {
         controllerFactory.getAppWidgetController(appWidgetId).onClick()
     }
 
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
-        AndroidInjection.inject(this, context)
         if (intent.action == null) {
             val widgetId = intent.extras?.get(AppWidgetManager.EXTRA_APPWIDGET_ID) as? Int ?: return
-            onLemonClicked(context, AppWidgetManager.getInstance(context), widgetId)
+            onLemonClicked(widgetId)
         }
     }
 

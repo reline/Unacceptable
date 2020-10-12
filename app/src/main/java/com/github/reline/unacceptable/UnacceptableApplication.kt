@@ -1,32 +1,17 @@
 package com.github.reline.unacceptable
 
-import android.app.Activity
 import android.app.Application
-import android.content.BroadcastReceiver
-import com.github.reline.unacceptable.injection.components.DaggerApplicationComponent
-import com.github.reline.unacceptable.injection.modules.ApplicationModule
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
-import dagger.android.HasBroadcastReceiverInjector
+import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
 import javax.inject.Inject
 
-class UnacceptableApplication : Application(), HasBroadcastReceiverInjector, HasActivityInjector {
+@HiltAndroidApp
+class UnacceptableApplication : Application() {
+	@Inject
+	lateinit var tree: Timber.Tree
 
-    @Inject
-    lateinit var broadcastReceiverInjector: DispatchingAndroidInjector<BroadcastReceiver>
-
-    @Inject
-    lateinit var activityInjector: DispatchingAndroidInjector<Activity>
-
-    override fun onCreate() {
-        super.onCreate()
-        DaggerApplicationComponent.builder()
-                .applicationModule(ApplicationModule(this))
-                .build()
-                .inject(this);
-    }
-
-    override fun broadcastReceiverInjector() = broadcastReceiverInjector
-
-    override fun activityInjector() = activityInjector
+	override fun onCreate() {
+		super.onCreate()
+		Timber.plant(tree)
+	}
 }

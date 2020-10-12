@@ -54,7 +54,7 @@ class UnacceptableWidgetProvider : AppWidgetProvider() {
         appWidgetManager.updateAppWidget(appWidgetId, views)
     }
 
-    private fun onLemonClicked(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
+    private fun onLemonClicked(appWidgetId: Int) {
         controllerFactory.getAppWidgetController(appWidgetId).onClick()
     }
 
@@ -62,7 +62,7 @@ class UnacceptableWidgetProvider : AppWidgetProvider() {
         super.onReceive(context, intent)
         if (intent.action == null) {
             val widgetId = intent.extras?.get(AppWidgetManager.EXTRA_APPWIDGET_ID) as? Int ?: return
-            onLemonClicked(context, AppWidgetManager.getInstance(context), widgetId)
+            onLemonClicked(widgetId)
         }
     }
 
